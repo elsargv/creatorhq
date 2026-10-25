@@ -1,13 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Content Planner</title>
 </head>
+
 <body>
   <h1>Today</h1>
   <h4>hi guys</h4>
   <p>Hello, this is my first page!</p>
   <p>omg it works</p>
+
+  <form>
+<input type="text" id="task-input" placeholder="What do you need to do?"> 
+<input type="time" id="task-time">    
+<button type="button" id="add-btn">Add</button>
+  </form>
+
+  <ul id="task-list"></ul>
+
+  <script>
+
+    // 1. Elements
+    const addBtn = document.getElementById("add-btn");
+    const taskInput = document.getElementById("task-input");
+    const taskTime = document.getElementById("task-time");
+    const taskList = document.getElementById("task-list");
+
+    // 2. Data
+    let tasks = [];
+
+    // 3. Functions
+    function addTask() {
+      const text = taskInput.value.trim();
+      if (text === "") return;
+
+      tasks.push({ text: text, time: taskTime.value });
+      taskInput.value = "";
+      render();
+    }
+
+    function render() {
+      taskList.innerHTML = "";
+
+      for (const task of tasks) {
+        const li = document.createElement("li");
+        li.textContent = task.text + (task.time ? " (" + task.time + ")" : "");
+        taskList.appendChild(li);
+      }
+    }
+
+    // 4. Events
+    addBtn.addEventListener("click", addTask);
+
+  </script>
 </body>
+
 </html>
